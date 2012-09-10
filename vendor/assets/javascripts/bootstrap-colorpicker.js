@@ -36,21 +36,25 @@
     
     //parse a string to HSB
     setColor: function(val){
-      val = val.toLowerCase();
-      var that = this;
-      $.each( CPGlobal.stringParsers, function( i, parser ) {
-        var match = parser.re.exec( val ),
-          values = match && parser.parse( match ),
-          space = parser.space||'rgba';
-        if ( values ) {
-          if (space == 'hsla') {
-            that.value = CPGlobal.RGBtoHSB.apply(null, CPGlobal.HSLtoRGB.apply(null, values));
-          } else {
-            that.value = CPGlobal.RGBtoHSB.apply(null, values);
-          }
+      if (val){
+          val = val.toLowerCase();
+          var that = this;
+          $.each( CPGlobal.stringParsers, function( i, parser ) {
+            var match = parser.re.exec( val ),
+              values = match && parser.parse( match ),
+              space = parser.space||'rgba';
+            if ( values ) {
+              if (space == 'hsla') {
+                that.value = CPGlobal.RGBtoHSB.apply(null, CPGlobal.HSLtoRGB.apply(null, values));
+              } else {
+                that.value = CPGlobal.RGBtoHSB.apply(null, values);
+              }
+              return false;
+            }
+          });
+      } else {
           return false;
-        }
-      });
+      }
     },
     
     setHue: function(h) {
