@@ -147,6 +147,7 @@
     
     if (this.isInput) {
       this.element.on({
+        'click': $.proxy(this.show, this),
         'focus': $.proxy(this.show, this),
         'keyup': $.proxy(this.update, this)
       });
